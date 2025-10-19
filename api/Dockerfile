@@ -11,5 +11,6 @@ COPY . .
 # Install the application dependencies.
 RUN uv sync --frozen --no-cache
 
-# Run the application.
-CMD ["/.venv/bin/fastapi", "run", "main.py", "--port", "8000", "--host", "0.0.0.0"]
+EXPOSE 8000
+
+CMD ["fastapi", "run", "main.py"]
