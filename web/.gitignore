@@ -5,3 +5,6 @@
 # React Router
 /.react-router/
 /build/
+
+tokenStore.json
+set.ps1

@@ -1,0 +1,85 @@
+@use "./defaults.scss" as *;
+
+
+html {
+  min-height: 100vh;
+}
+
+body {
+  background-color: $color-background-primary;
+  color: $color-text-primary;
+  font-family: $font-family-sans;
+  min-height: 100vh;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: $color-text-primary;
+  text-decoration: none;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+.button {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border-width: 0px;
+  border-style: solid;
+  outline: 2px solid $color-border-default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-background-button;
+  cursor: pointer;
+  user-select: none;
+}
+
+.button:hover {
+  outline: 2px solid $color-border-focus;
+  background-color: $color-background-button-hover;
+}
+
+.buttonIcon {
+  width: 24px;
+  height: 24px;
+  stroke: $color-icon-primary;
+}
+
+.buttonIcon:hover {
+  stroke: $color-icon-secondary;
+}
+
+
+code {
+  width: 300px;
+  height: 200px;
+  background: $color-code-background;
+  overflow: auto;
+}
+
+pre {
+  height: 100%;
+  white-space: pre-wrap;
+  /* CSS3 */
+  word-wrap: break-word;
+  /* IE 5.5+ */
+}
