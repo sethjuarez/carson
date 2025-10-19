@@ -17,6 +17,7 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import TaskNode from "./tasknode";
+import TaskEdge from "./taskedge";
 
 const initialNodes: Node[] = [
   {
@@ -32,7 +33,15 @@ const initialNodes: Node[] = [
     type: "taskNode",
   },
 ];
-const initialEdges: Edge[] = [{ id: "n1-n2", source: "n1", target: "n2" }];
+const initialEdges: Edge[] = [
+  {
+    id: "n1-n2",
+    source: "n1",
+    target: "n2",
+    type: "taskEdge",
+    data: { id: "e1", task: "edge task" },
+  },
+];
 
 type Props = {
   id?: string;
@@ -72,8 +81,21 @@ const Workflow: React.FC<Props> = ({ id }: Props) => {
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Delete" || event.key === "Backspace") {
+        // find all selected nodes
+        const selectedNodes = nodes.filter((node) => node.selected);
+        const selectedEdges = edges.filter((edge) => edge.selected);
+        // find all edges connected to selected nodes
+        const connectedEdges = edges.filter(
+          (edge) =>
+            selectedNodes.some((node) => node.id === edge.source) ||
+            selectedNodes.some((node) => node.id === edge.target)
+        );
+        const edgesToRemove = [
+          ...new Set([...selectedEdges, ...connectedEdges]),
+        ];
+        // remove selected nodes and connected edges
         setNodes((nds) => nds.filter((node) => !node.selected));
-        setEdges((eds) => eds.filter((edge) => !edge.selected));
+        setEdges((eds) => eds.filter((edge) => !edgesToRemove.includes(edge)));
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -92,6 +114,9 @@ const Workflow: React.FC<Props> = ({ id }: Props) => {
         onConnect={onConnect}
         nodeTypes={{
           taskNode: TaskNode,
+        }}
+        edgeTypes={{
+          taskEdge: TaskEdge,
         }}
         proOptions={{ hideAttribution: true }}
         fitView
