@@ -1,4 +1,4 @@
-name: Build and deploy frontend container app
+name: carson web
 
 on:
   push:
