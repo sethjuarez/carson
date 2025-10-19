@@ -9,5 +9,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <div className={styles.thing}>Hello world</div>;
+  return <div className={styles.thing}>Hello world!</div>;
 }
