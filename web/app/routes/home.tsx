@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
 import styles from "./home.module.scss";
+import Workflow from "components/workflow/workflow";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,5 +10,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <div className={styles.thing}>Hello world!</div>;
+  return (
+    <div className={styles.thing}>
+      <Workflow />
+    </div>
+  );
 }
