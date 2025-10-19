@@ -1,9 +1,9 @@
-name: carson web
+name: carson-web
 
 on:
   push:
     branches:
-      - release
+      - main
     paths:
       - "web/**"
   workflow_dispatch:
