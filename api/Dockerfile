@@ -13,4 +13,4 @@ RUN uv sync --frozen --no-cache
 
 EXPOSE 8000
 
-CMD ["uv", "run", "fastapi", "run", "main.py"]
+CMD ["uv", "run", "fastapi", "run", "./app/main.py"]
