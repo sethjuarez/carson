@@ -15,8 +15,8 @@ const TaskNode: React.FC<NodeProps<TaskNodeItem>> = (
 ) => {
   return (
     <div className={styles.container}>
-      <div>{props.data.label}</div>
-      <div>{props.data.task}</div>
+      <div className={styles.label}>{props.data.label}</div>
+      <div className={styles.task}>{props.data.task}</div>
       <Handle type="source" position={Position.Right} />
       <Handle type="target" position={Position.Left} />
     </div>

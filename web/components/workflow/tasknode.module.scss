@@ -2,13 +2,24 @@
 
 .container {
   padding: 16px;
-  border: 1px solid $color-text-primary;
+  border: 1px solid $color-text-light;
   border-radius: 5px;
-  background-color: $color-background-primary;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: $font-family-sans;
   font-size: small;
+  height: 2.5rem;
+}
+
+.label {
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: $color-text-light;
+}
+
+.task {
+  color: $color-text-light;
+  font-size: 0.5rem;
 }

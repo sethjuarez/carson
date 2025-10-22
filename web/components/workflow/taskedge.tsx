@@ -7,6 +7,7 @@ import {
   getBezierPath,
   EdgeLabelRenderer,
 } from "@xyflow/react";
+import clsx from "clsx";
 
 type TaskEdgeItem = Edge<
   {
@@ -35,7 +36,7 @@ const TaskEdge: React.FC<EdgeProps<TaskEdgeItem>> = (
             transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
             pointerEvents: "all",
           }}
-          className="nodrag nopan"
+          className={clsx(styles.label, "nodrag", "nopan")}
         >
           {props.data?.task}
         </div>

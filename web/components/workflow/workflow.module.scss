@@ -3,12 +3,6 @@
 
 .container {
   color: $color-neutral-800;
-  background-color: $color-neutral-100;
-  border: 1px solid $color-neutral-300;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 16px 16px;
+  background-color: $color-neutral-800;
   box-shadow: $shadow-sm;
-  width: calc(100vw - 64px);
-  height: calc(100vh - 64px);
 }

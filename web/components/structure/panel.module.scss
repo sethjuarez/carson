@@ -1,0 +1,43 @@
+@use "../../app/defaults.scss" as *;
+
+.panel {
+  background-color: $color-neutral-800;
+  margin: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.title {
+  font-size: 0.75rem;
+  color: $color-text-light;
+  padding-left: 0.5rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  color: $color-text-light;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  height: calc(100% - 3rem);
+}
+
+.content > div {
+  flex-grow: 1;
+}

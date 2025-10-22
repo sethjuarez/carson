@@ -1,0 +1,14 @@
+@use "../../app/defaults.scss" as *;
+
+.button {
+  color: $color-text-light;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}

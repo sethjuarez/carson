@@ -14,6 +14,7 @@ import {
   Controls,
   MiniMap,
   Panel,
+  ReactFlowProvider,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import TaskNode from "./tasknode";
@@ -28,7 +29,7 @@ const initialNodes: Node[] = [
   },
   {
     id: "n2",
-    position: { x: 0, y: 100 },
+    position: { x: 200, y: 50 },
     data: { label: "Node 2", task: "another prompt" },
     type: "taskNode",
   },
@@ -106,28 +107,29 @@ const Workflow: React.FC<Props> = ({ id }: Props) => {
 
   return (
     <div className={styles.container}>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        nodeTypes={{
-          taskNode: TaskNode,
-        }}
-        edgeTypes={{
-          taskEdge: TaskEdge,
-        }}
-        proOptions={{ hideAttribution: true }}
-        fitView
-      >
-        <Panel position="top-left" className={styles.panel}>
-          <button onClick={addNode}>Click Me</button>
-        </Panel>
-        <Background />
-        <MiniMap nodeStrokeWidth={3} />
-        <Controls />
-      </ReactFlow>
+      <ReactFlowProvider>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          nodeTypes={{
+            taskNode: TaskNode,
+          }}
+          edgeTypes={{
+            taskEdge: TaskEdge,
+          }}
+          proOptions={{ hideAttribution: true }}
+          fitView
+        >
+          <Panel position="top-left" className={styles.panel}>
+            <button onClick={addNode}>Click Me</button>
+          </Panel>
+          <Background />
+          <Controls />
+        </ReactFlow>
+      </ReactFlowProvider>
     </div>
   );
 };
