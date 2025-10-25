@@ -1,7 +1,6 @@
 import * as d3 from "d3";
 import styles from "./output.module.scss";
 import { useRef } from "react";
-import useDimensions from "store/usedimensions";
 import { type OutputNode, type Data, Dimensions } from "store/output";
 import TextOutput from "./textoutput";
 import { API_ENDPOINT } from "store/endpoint";
@@ -9,22 +8,22 @@ import OutputDisplay, { type OuptutDisplayHandle } from "./outputdisplay";
 
 type Props = {
   data: OutputNode;
+  width: number;
+  height: number;
 };
 
-const Output: React.FC<Props> = ({ data }: Props) => {
+const Output: React.FC<Props> = ({ data, width, height }: Props) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const outputDisplayRef = useRef<OuptutDisplayHandle>(null);
-  const dms = useDimensions(chartRef);
-  console.log("Output dimensions:", dms);
 
   const treemap = (data: OutputNode) =>
     d3
       .treemap<OutputNode>()
       .tile(d3.treemapBinary)
-      .size([dms.boundedWidth, dms.boundedHeight])
-      .paddingOuter(16)
-      .paddingTop(48)
-      .paddingInner(16)
+      .size([width, height])
+      .paddingOuter(8)
+      .paddingTop(8)
+      .paddingInner(8)
       .round(true)(
       d3
         .hierarchy<OutputNode>(data)
@@ -42,8 +41,6 @@ const Output: React.FC<Props> = ({ data }: Props) => {
   ) => {
     const width = d.x1 - d.x0;
     const height = d.y1 - d.y0;
-    const x = d.x0;
-    const y = d.y0;
 
     if (data.type === "text") {
       return (
@@ -51,15 +48,15 @@ const Output: React.FC<Props> = ({ data }: Props) => {
           <rect
             id={id + "_rect"}
             width={d.x1 - d.x0}
-            height={d.y1 - d.y0}
+            height={Math.max(d.y1 - d.y0 - 32, 1)}
             fill={"#FFFFFF"}
             rx={8}
             ry={8}
           />
           <clipPath id={`clip-${id}`}>
             <rect
-              width={Math.max(d.x1 - d.x0 - 5, 1)}
-              height={Math.max(d.y1 - d.y0 - 5, 1)}
+              width={Math.max(d.x1 - d.x0, 1)}
+              height={Math.max(d.y1 - d.y0 - 32, 1)}
               rx={8}
               ry={8}
             />
@@ -167,82 +164,74 @@ const Output: React.FC<Props> = ({ data }: Props) => {
   return (
     <>
       <div className={styles.container} ref={chartRef}>
-        <svg width={dms.width} height={dms.height} className={styles.treemap}>
-          <g
-            transform={`translate(${[dms.marginLeft, dms.marginTop].join(
-              ","
-            )})`}
-            height={dms.boundedHeight}
-            width={dms.boundedWidth}
-          >
-            {root.map((d, i) => (
-              <g key={i}>
-                <g key={d.data.id} transform={`translate(${d.x0},${d.y0 - 48})`}>
-                  <title>{d.data.title}</title>
+        <svg width={width} height={height} className={styles.treemap}>
+          {root.map((d, i) => (
+            <g key={i}>
+              <g key={d.data.id} transform={`translate(${d.x0},${d.y0})`}>
+                <title>{d.data.title}</title>
+                <rect
+                  id={`rect-${d.data.id}`}
+                  width={d.x1 - d.x0}
+                  height={d.y1 - d.y0}
+                  fill={"#1A1617AA"}
+                  rx={8}
+                  ry={8}
+                  opacity={0.75}
+                />
+                <clipPath id={`clip-${d.data.id}`}>
                   <rect
-                    id={`rect-${d.data.id}`}
-                    width={d.x1 - d.x0}
-                    height={d.y1 - d.y0}
-                    fill={"#1A1617AA"}
+                    width={Math.max(d.x1 - d.x0 - 4, 1)}
+                    height={Math.max(d.y1 - d.y0 - 4, 1)}
                     rx={8}
                     ry={8}
-                    opacity={0.75}
+                    opacity={0.5}
                   />
-                  <clipPath id={`clip-${d.data.id}`}>
-                    <rect
-                      width={Math.max(d.x1 - d.x0 - 4, 1)}
-                      height={Math.max(d.y1 - d.y0 - 4, 1)}
-                      rx={8}
-                      ry={8}
-                      opacity={0.5}
-                    />
-                  </clipPath>
-                  <text
-                    clipPath={`url(#clip-${d.data.id})`}
-                    style={{ fontSize: "1em", fill: "white" }}
-                  >
-                    <tspan dx={18} y={30}>
-                      {d.data.title}
-                    </tspan>
-                  </text>
-                </g>
-                {d.children &&
-                  d.children.map((child, j) => (
-                    <g
-                      key={child.data.id}
-                      transform={`translate(${child.x0},${child.y0 - 48})`}
-                      onClick={() => {
-                        if (child.data.data) {
-                          outputDisplayRef.current?.activateOutputDisplay(
-                            child.data.data
-                          );
-                        }
-                      }}
-                      className={styles.item}
-                    >
-                      {child.data.data ? (
-                        generateContent(
-                          child.data.id,
-                          child.data.title,
-                          child.data.data,
-                          new Dimensions(child.x0, child.y0, child.x1, child.y1)
-                        )
-                      ) : (
-                        <rect
-                          id={child.id + "_rect"}
-                          width={child.x1 - child.x0}
-                          height={child.y1 - d.y0}
-                          fill={"#000000"}
-                          rx={8}
-                          ry={8}
-                          opacity={0.5}
-                        />
-                      )}
-                    </g>
-                  ))}
+                </clipPath>
+                <text
+                  clipPath={`url(#clip-${d.data.id})`}
+                  style={{ fontSize: "1em", fill: "white" }}
+                >
+                  <tspan dx={18} y={30}>
+                    {d.data.title}
+                  </tspan>
+                </text>
               </g>
-            ))}
-          </g>
+              {d.children &&
+                d.children.map((child, j) => (
+                  <g
+                    key={child.data.id}
+                    transform={`translate(${child.x0},${child.y0 + 32})`}
+                    onClick={() => {
+                      if (child.data.data) {
+                        outputDisplayRef.current?.activateOutputDisplay(
+                          child.data.data
+                        );
+                      }
+                    }}
+                    className={styles.item}
+                  >
+                    {child.data.data ? (
+                      generateContent(
+                        child.data.id,
+                        child.data.title,
+                        child.data.data,
+                        new Dimensions(child.x0, child.y0, child.x1, child.y1)
+                      )
+                    ) : (
+                      <rect
+                        id={child.id + "_rect"}
+                        width={child.x1 - child.x0}
+                        height={child.y1 - child.y0}
+                        fill={"#000000"}
+                        rx={8}
+                        ry={8}
+                        opacity={0.5}
+                      />
+                    )}
+                  </g>
+                ))}
+            </g>
+          ))}
         </svg>
       </div>
       <OutputDisplay ref={outputDisplayRef} />

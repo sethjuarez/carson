@@ -25,18 +25,18 @@
     flex-direction: column;
 }
 
-.content>div {
-    flex-grow: 1;
-}
-
 .sidebar {
-    width: 15rem;
+    min-width: 15rem;
 }
 
 .output {
-    border: solid 1px red;
+    height: 100%;
+    overflow: hidden;
 }
 
-.output>div {
-    flex-grow: 1;
+.treemap {
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+    /* Prevents extra space below SVG */
 }

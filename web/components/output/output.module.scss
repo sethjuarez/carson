@@ -1,12 +1,24 @@
 .container {
-  background-color: transparent;
-  //border: solid 1px black;
-  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.container>svg {
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+  display: block;
+  /* Prevents extra space below SVG */
+  margin: 0 auto;
 }
 
 
 .treemap {
   background-color: transparent;
+  display: block;
 }
 
 .item {

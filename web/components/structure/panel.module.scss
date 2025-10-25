@@ -2,7 +2,6 @@
 
 .panel {
   background-color: $color-neutral-800;
-  margin: 0.25rem;
   border-radius: 0.5rem;
 }
 
@@ -16,6 +15,12 @@
   padding-left: 0.5rem;
 }
 
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -24,6 +29,12 @@
   justify-content: center;
   align-items: center;
   color: $color-text-light;
+  height: 1.75rem;
+  margin-top: 0.25rem;
+  background-color: $color-neutral-800;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  //border: solid 1px red;
 }
 
 .icon {
@@ -34,10 +45,13 @@
 .content {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
-  height: calc(100% - 3rem);
+  background-color: $color-neutral-800;
+  height: 100%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  overflow: hidden;
 }
 
-.content > div {
-  flex-grow: 1;
+.hidden {
+  display: none;
 }

@@ -1,15 +1,33 @@
-import React, { type ReactElement } from "react";
+import React, { useState, type ReactElement } from "react";
 import styles from "./panel.module.scss";
-import type Tool from "./tool";
+import Tool from "./tool";
+import { BiExpandVertical } from "react-icons/bi";
+import { clsx } from "clsx";
 
 type PanelProps = {
   header: string;
+  collapsed?: boolean;
+  onToggleCollapse?: () => void;
   icon?: React.ReactNode;
   actions?: ReactElement<typeof Tool> | ReactElement<typeof Tool>[];
   children?: React.ReactNode;
 };
 
-const Panel: React.FC<PanelProps> = ({ header, icon, actions, children }) => {
+const Panel: React.FC<PanelProps> = ({
+  header,
+  collapsed,
+  onToggleCollapse,
+  icon,
+  actions,
+  children,
+}) => {
+  const [hidden, setHidden] = useState(collapsed);
+
+  const toggleDisclosure = () => {
+    setHidden((prev) => !prev);
+    onToggleCollapse?.();
+  };
+
   if (!actions) {
     actions = [];
   }
@@ -17,7 +35,7 @@ const Panel: React.FC<PanelProps> = ({ header, icon, actions, children }) => {
     actions = [actions];
   }
   return (
-    <div className={styles.panel}>
+    <>
       <div className={styles.header}>
         {icon && <div className={styles.icon}>{icon}</div>}
         <div className={styles.title}>{header}</div>
@@ -29,10 +47,16 @@ const Panel: React.FC<PanelProps> = ({ header, icon, actions, children }) => {
                 {action}
               </span>
             ))}
+          <Tool
+            icon={<BiExpandVertical size={16} />}
+            onClick={toggleDisclosure}
+          />
         </div>
       </div>
-      <div className={styles.content}>{children}</div>
-    </div>
+      <div className={clsx(hidden ? styles.hidden : styles.content)}>
+        {children}
+      </div>
+    </>
   );
 };
 

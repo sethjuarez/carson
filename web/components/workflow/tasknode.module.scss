@@ -1,25 +1,34 @@
 @use "../../app/defaults.scss" as *;
 
 .container {
-  padding: 16px;
-  border: 1px solid $color-text-light;
-  border-radius: 5px;
+  border: 1px solid $color-neutral-900;
+  background-color: $color-text-light;
+  border-radius: 2px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-family: $font-family-sans;
-  font-size: small;
   height: 2.5rem;
+  gap: 8px;
+  overflow: visible;
+  padding-right: 8px;
+}
+
+.sidebar {
+  width: 6px;
+  height: 100%;
+  background-color: $color-primary-500;
 }
 
 .label {
   font-weight: 600;
+  font-size: 12px;
   margin-bottom: 2px;
-  color: $color-text-light;
+  color: $color-neutral-900;
 }
 
 .task {
-  color: $color-text-light;
-  font-size: 0.5rem;
+  color: $color-neutral-600;
+  font-size: 8px;
 }

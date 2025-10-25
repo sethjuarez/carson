@@ -4,5 +4,6 @@
 .container {
   color: $color-neutral-800;
   background-color: $color-neutral-800;
-  box-shadow: $shadow-sm;
+  padding: 0px;
+  flex-grow: 1;
 }

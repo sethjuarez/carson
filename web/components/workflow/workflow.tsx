@@ -24,13 +24,13 @@ const initialNodes: Node[] = [
   {
     id: "n1",
     position: { x: 0, y: 0 },
-    data: { label: "Node 1", task: "my prompt" },
+    data: { label: "Concierge", task: "Routing" },
     type: "taskNode",
   },
   {
     id: "n2",
     position: { x: 200, y: 50 },
-    data: { label: "Node 2", task: "another prompt" },
+    data: { label: "Store Observer", task: "Managing Store" },
     type: "taskNode",
   },
 ];
@@ -40,7 +40,7 @@ const initialEdges: Edge[] = [
     source: "n1",
     target: "n2",
     type: "taskEdge",
-    data: { id: "e1", task: "edge task" },
+    data: { id: "e1", task: "Route request" },
   },
 ];
 

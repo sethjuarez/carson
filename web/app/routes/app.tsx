@@ -1,17 +1,16 @@
 import type { Route } from "./+types/app";
 import styles from "./app.module.scss";
 import { useUser } from "store/useuser";
-import { BiExpandVertical } from "react-icons/bi";
 import { IoSparkles, IoGitBranchOutline } from "react-icons/io5";
 import Title from "components/structure/title";
 import Panel from "components/structure/panel";
-import Tool from "components/structure/tool";
 import Workflow from "components/workflow/workflow";
 import Output from "components/output/output";
 import usePersistStore from "store/usepersiststore";
 import { useOutputStore } from "store/output";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { scenarioOutput } from "store/data";
+import { debounce } from "store/utils";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -28,10 +27,32 @@ export default function App() {
   const work = usePersistStore(useOutputStore, (state) => state);
   const { user, error } = useUser();
 
+  const chartRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+
+  const setOutputDimentsion = debounce(
+    (ref: React.RefObject<HTMLDivElement | null>) => {
+      if (ref.current) {
+        setWidth(ref.current.clientWidth);
+        setHeight(ref.current.clientHeight);
+      }
+    },
+    50
+  );
+
   // load default data if no work present using useEffect
   useEffect(() => {
     work?.addRoot(scenarioOutput);
   }, [work]);
+
+  useEffect(() => {
+    setOutputDimentsion(chartRef);
+  }, [chartRef]);
+
+  function collapseToggled(): void {
+    setOutputDimentsion(chartRef);
+  }
 
   return (
     <main className={styles.home}>
@@ -47,28 +68,19 @@ export default function App() {
           <Panel
             icon={<IoSparkles size={16} />}
             header="Work Panel"
-            actions={
-              <Tool
-                icon={<BiExpandVertical size={16} />}
-                onClick={() => alert("CLICK")}
-              />
-            }
+            onToggleCollapse={collapseToggled}
           >
-            <div className={styles.output}>
+            <div className={styles.output} ref={chartRef}>
               {work && work.output && work.output.children.length > 0 && (
-                <Output data={work.output} />
+                <Output data={work.output} height={height} width={width} />
               )}
             </div>
           </Panel>
           <Panel
             icon={<IoGitBranchOutline size={16} />}
             header="Voice Workflow"
-            actions={
-              <Tool
-                icon={<BiExpandVertical size={16} />}
-                onClick={() => alert("CLICK")}
-              />
-            }
+            collapsed={true}
+            onToggleCollapse={collapseToggled}
           >
             <Workflow />
           </Panel>
