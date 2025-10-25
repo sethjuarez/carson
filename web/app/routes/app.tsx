@@ -92,7 +92,7 @@ export default function App() {
             <Workflow />
           </Panel>
         </div>
-        <div className={styles.sidebar}></div>
+        <div className={styles.effort}></div>
       </div>
     </main>
   );
