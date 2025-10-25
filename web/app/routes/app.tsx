@@ -38,12 +38,19 @@ export default function App() {
         setHeight(ref.current.clientHeight);
       }
     },
-    50
+    10
   );
 
-  // load default data if no work present using useEffect
   useEffect(() => {
     work?.addRoot(scenarioOutput);
+    window.addEventListener("resize", () => {
+      setOutputDimentsion(chartRef);
+    });
+    return () => {
+      window.removeEventListener("resize", () => {
+        setOutputDimentsion(chartRef);
+      });
+    };
   }, [work]);
 
   useEffect(() => {
