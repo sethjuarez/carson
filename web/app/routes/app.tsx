@@ -11,6 +11,10 @@ import { useOutputStore } from "store/output";
 import { useEffect, useRef, useState } from "react";
 import { scenarioOutput } from "store/data";
 import { debounce } from "store/utils";
+import Settings from "components/settings/settings";
+import Setting from "components/settings/setting";
+import { TbArticle, TbAssembly, TbSettingsCog } from "react-icons/tb";
+import Tool from "components/structure/tool";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -93,6 +97,39 @@ export default function App() {
           </Panel>
         </div>
         <div className={styles.effort}></div>
+        <div className={styles.toolbar}>
+          <Settings>
+            <Tool
+              icon={<TbSettingsCog size={14} />}
+              onClick={() => alert("Tool clicked")}
+              title={"Settings"}
+            />
+            <Setting
+              id={"voice-agent-settings"}
+              icon={<TbArticle size={14} />}
+              className={styles.editor}
+              title={"Voice Agent Settings"}
+            >
+              <div>Voice Agent Settings Component</div>
+            </Setting>
+            <Setting
+              id={"design-settings"}
+              icon={<TbAssembly size={14} />}
+              className={styles.design}
+              title={"Design Settings"}
+            >
+              <div>Design Settings Component</div>
+            </Setting>
+            <Setting
+              id={"voice-settings"}
+              icon={<TbSettingsCog size={14} />}
+              className={styles.voice}
+              title={"Voice Settings"}
+            >
+              <div>Voice Settings Component</div>
+            </Setting>
+          </Settings>
+        </div>
       </div>
     </main>
   );

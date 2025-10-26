@@ -1,0 +1,36 @@
+@use "../../app/defaults.scss" as *;
+@use 'sass:color';
+
+.settings {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  justify-content: flex-end;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 4rem;
+  background-color: $color-white;
+  border: solid 1px $color-border-default;
+  border-radius: 0.5rem;
+  box-shadow: $shadow-md;
+  z-index: 30;
+}
+
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: color.change($color-neutral-600, $alpha: 0.5);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  z-index: 20;
+}

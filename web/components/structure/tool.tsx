@@ -5,7 +5,7 @@ import clsx from "clsx";
 interface Props {
   icon: React.ReactNode;
   onClick: () => void;
-  title?: string;
+  title: string;
   className?: string;
 }
 

@@ -90,10 +90,10 @@ class CosmosService:
             return results
 
 
-class VoiceConfigurations(CosmosService):
+class ConfigurationService(CosmosService):
     def __init__(self, connection_string: str, database_name: str):
         super().__init__(
             connection_string=connection_string,
-            database_name="configurations",
-            container_name="voice_configurations",
+            database_name=database_name,
+            container_name="configurations",
         )

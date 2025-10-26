@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     database_connection: str = Field(
         default="", description="Database connection string"
     )
+    database_name: str = Field(default="carson", description="Database name")
     client_id: str = Field(default="LOCAL", description="Client ID")
 
 

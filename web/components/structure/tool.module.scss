@@ -1,14 +1,24 @@
 @use "../../app/defaults.scss" as *;
+@use 'sass:color';
+
+//color.change($color-neutral-800, $alpha: 0.9);
 
 .button {
-  color: $color-text-light;
+  background-color: color.change($color-background-primary, $alpha: 0.8);
+  color: color.change($color-text-secondary, $alpha: 0.8);
+  border: solid 2px color.change($color-text-light, $alpha: 0.8);
   border-radius: 50%;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   user-select: none;
+}
+
+.button:hover {
+  background-color: $color-background-button;
+  border-color: $color-border-active;
 }

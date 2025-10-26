@@ -9,7 +9,7 @@ type PanelProps = {
   collapsed?: boolean;
   onToggleCollapse?: () => void;
   icon?: React.ReactNode;
-  actions?: ReactElement<typeof Tool> | ReactElement<typeof Tool>[];
+  actions?: React.ReactNode[];
   children?: React.ReactNode;
 };
 
@@ -47,9 +47,10 @@ const Panel: React.FC<PanelProps> = ({
                 {action}
               </span>
             ))}
-          <Tool
-            icon={<BiExpandVertical size={16} />}
+          <BiExpandVertical
+            size={16}
             onClick={toggleDisclosure}
+            className={styles.action}
           />
         </div>
       </div>

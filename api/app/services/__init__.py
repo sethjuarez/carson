@@ -1,8 +1,7 @@
 from .storage import StorageService
-from .cosmos import CosmosService, VoiceConfigurations
+from .cosmos import ConfigurationService
 
 __all__ = [
     "StorageService",
-    "CosmosService",
-    "VoiceConfigurations",
+    "ConfigurationService",
 ]

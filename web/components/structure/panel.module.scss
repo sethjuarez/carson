@@ -21,6 +21,11 @@
   gap: 0.25rem;
 }
 
+.action {
+  cursor: pointer;
+  color: $color-text-light;
+}
+
 .header {
   display: flex;
   flex-direction: row;

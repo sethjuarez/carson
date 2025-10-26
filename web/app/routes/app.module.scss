@@ -9,14 +9,16 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode: darken;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
-    width: calc(100vw - 1.5rem);
-    height: calc(100vh - 4.25rem);
     margin: 0px auto;
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
+    margin-bottom: 0.5rem;
 }
 
 .content {
@@ -28,6 +30,19 @@
 
 .effort {
     min-width: 15rem;
+}
+
+.toolbar {
+    padding: 4px;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
 }
 
 
