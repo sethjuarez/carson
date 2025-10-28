@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./setting.module.scss";
 import Tool from "../structure/tool";
 import clsx from "clsx";
+import Modal from "../structure/modal";
 
 interface Props {
   id: string;
@@ -52,13 +53,10 @@ const Setting: React.FC<Props> = ({
 
   return (
     <div id={id} className={styles.settings}>
-      {isOpen && (
-        <>
-          <div className={styles.cover} onClick={() => setIsOpen(false)}></div>
-          <div className={clsx(styles.content, className)}>{children}</div>
-        </>
-      )}
       <Tool icon={icon} onClick={toggleOpen} title={title} />
+      <Modal title={title} isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        {children}
+      </Modal>
     </div>
   );
 };

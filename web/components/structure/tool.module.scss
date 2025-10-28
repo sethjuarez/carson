@@ -4,9 +4,9 @@
 //color.change($color-neutral-800, $alpha: 0.9);
 
 .button {
-  background-color: color.change($color-background-primary, $alpha: 0.8);
-  color: color.change($color-text-secondary, $alpha: 0.8);
-  border: solid 2px color.change($color-text-light, $alpha: 0.8);
+  background-color: color.change($color-background-primary, $alpha: 1);
+  color: color.change($color-text-secondary, $alpha: 1);
+  border: solid 2px color.change($color-text-light, $alpha: 1);
   border-radius: 50%;
   width: 18px;
   height: 18px;

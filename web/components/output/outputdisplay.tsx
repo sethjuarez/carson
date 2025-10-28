@@ -4,6 +4,7 @@ import React, { useEffect, useImperativeHandle } from "react";
 import { VscChromeClose } from "react-icons/vsc";
 import TextOutput from "./textoutput";
 import { API_ENDPOINT } from "store/endpoint";
+import Modal from "components/structure/modal";
 
 export interface OuptutDisplayHandle {
   activateOutputDisplay: (data: Data) => void;
@@ -37,22 +38,8 @@ const OutputDisplay = React.forwardRef<OuptutDisplayHandle, {}>((_, ref) => {
     };
   }, []);
 
-
   if (!isOpen) return null;
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
-    const div = event.target as HTMLDivElement;
-    if(div.className.includes(styles.modal)) {
-      closeModal();
-    }
-  };
-
-  const handleClose = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    console.log("Clicked close button");
-    closeModal();
-  };
 
   const renderContent = () => {
     if (!data) return null;
@@ -63,13 +50,13 @@ const OutputDisplay = React.forwardRef<OuptutDisplayHandle, {}>((_, ref) => {
         const imageUrl = data.image_url.startsWith("http")
           ? data.image_url
           : `${API_ENDPOINT}/${data.image_url}`;
-          return (
-            <img
-              src={imageUrl}
-              alt={data.description}
-              style={{ width: "auto", height: "960px" }}
-            />
-          );
+        return (
+          <img
+            src={imageUrl}
+            alt={data.description}
+            style={{ width: "auto", height: "960px" }}
+          />
+        );
       case "video":
         const videoUrl = data.video_url.startsWith("http")
           ? data.video_url
@@ -98,21 +85,7 @@ const OutputDisplay = React.forwardRef<OuptutDisplayHandle, {}>((_, ref) => {
     }
   };
 
-  return (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.modal} onClick={handleClick}>
-        <div className={styles.container}>
-          <div className={styles.header}>
-            <div className={styles.grow} />
-            <button className={styles.close} onClick={handleClose}>
-              <VscChromeClose />
-            </button>
-          </div>
-          <div className={styles.content}>{renderContent()}</div>
-        </div>
-      </div>
-    </div>
-  );
+  return <Modal isOpen={isOpen} onClose={closeModal}>{renderContent()}</Modal>;
 });
 
 export default OutputDisplay;

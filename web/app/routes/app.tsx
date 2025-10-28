@@ -47,6 +47,7 @@ export default function App() {
 
   useEffect(() => {
     work?.addRoot(scenarioOutput);
+    setOutputDimentsion(chartRef);
     window.addEventListener("resize", () => {
       setOutputDimentsion(chartRef);
     });
@@ -55,11 +56,7 @@ export default function App() {
         setOutputDimentsion(chartRef);
       });
     };
-  }, [work]);
-
-  useEffect(() => {
-    setOutputDimentsion(chartRef);
-  }, [chartRef]);
+  }, [work, chartRef]);
 
   function collapseToggled(): void {
     setOutputDimentsion(chartRef);
