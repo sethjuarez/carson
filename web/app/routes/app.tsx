@@ -35,32 +35,26 @@ export default function App() {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
 
-  const setOutputDimentsion = debounce(
-    (ref: React.RefObject<HTMLDivElement | null>) => {
-      if (ref.current) {
-        setWidth(ref.current.clientWidth);
-        setHeight(ref.current.clientHeight);
-      }
-    },
-    10
-  );
+  const setOutputDimentsion = debounce((entries: ResizeObserverEntry[]) => {
+    if (entries[0].target) {
+      setWidth(entries[0].contentRect.width);
+      setHeight(entries[0].contentRect.height);
+    }
+  }, 10);
 
   useEffect(() => {
     work?.addRoot(scenarioOutput);
-    setOutputDimentsion(chartRef);
-    window.addEventListener("resize", () => {
-      setOutputDimentsion(chartRef);
-    });
+
+    const resizeObserver = new ResizeObserver(setOutputDimentsion);
+
+    if (chartRef.current) {
+      resizeObserver.observe(chartRef.current);
+    }
+
     return () => {
-      window.removeEventListener("resize", () => {
-        setOutputDimentsion(chartRef);
-      });
+      resizeObserver.disconnect();
     };
   }, [work, chartRef]);
-
-  function collapseToggled(): void {
-    setOutputDimentsion(chartRef);
-  }
 
   return (
     <main className={styles.home}>
@@ -73,11 +67,7 @@ export default function App() {
       />
       <div className={styles.container}>
         <div className={styles.content}>
-          <Panel
-            icon={<IoSparkles size={16} />}
-            header="Work Panel"
-            onToggleCollapse={collapseToggled}
-          >
+          <Panel icon={<IoSparkles size={16} />} header="Work Panel">
             <div className={styles.output} ref={chartRef}>
               {work && work.output && work.output.children.length > 0 && (
                 <Output data={work.output} height={height} width={width} />
@@ -88,7 +78,6 @@ export default function App() {
             icon={<IoGitBranchOutline size={16} />}
             header="Voice Workflow"
             collapsed={true}
-            onToggleCollapse={collapseToggled}
           >
             <Workflow />
           </Panel>
