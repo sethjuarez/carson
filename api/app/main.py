@@ -1,11 +1,14 @@
 from fastapi import FastAPI
-from .routers import configuration
 
+from .routers import create_router
 
 app = FastAPI()
 
-# Include routers
-app.include_router(configuration.router)
+# design router
+app.include_router(create_router(database="designs", type="design"))
+
+# applications router
+app.include_router(create_router(database="applications", type="application"))
 
 
 @app.get("/")

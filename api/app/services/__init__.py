@@ -1,7 +1,7 @@
 from .storage import StorageService
-from .cosmos import ConfigurationService
+from .cosmos import CosmosService
 
 __all__ = [
     "StorageService",
-    "ConfigurationService",
+    "CosmosService",
 ]

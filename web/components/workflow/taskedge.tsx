@@ -32,7 +32,6 @@ const TaskEdge: React.FC<EdgeProps<TaskEdgeItem>> = (
     targetY: props.targetY,
     targetPosition: Position.Left,
   });
-  console.log("markerEnd:", props.markerEnd);
   return (
     <>
       <BaseEdge

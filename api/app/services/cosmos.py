@@ -7,10 +7,13 @@ from pydantic import BaseModel
 
 
 class CosmosService:
-    def __init__(self, connection_string: str, database_name: str, container_name: str):
+    def __init__(
+        self, connection_string: str, database_name: str, container_name: str, type: str
+    ):
         self.connection_string = connection_string
         self.database_name = database_name
         self.container_name = container_name
+        self.type = type
 
     @contextlib.asynccontextmanager
     async def get_cosmos_client(self):
@@ -88,12 +91,3 @@ class CosmosService:
             async for item in items:
                 results.append(BaseModel.model_validate(item))
             return results
-
-
-class ConfigurationService(CosmosService):
-    def __init__(self, connection_string: str, database_name: str):
-        super().__init__(
-            connection_string=connection_string,
-            database_name=database_name,
-            container_name="configurations",
-        )

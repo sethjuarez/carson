@@ -20,28 +20,29 @@ import {
 import "@xyflow/react/dist/style.css";
 import TaskNode from "./tasknode";
 import TaskEdge from "./taskedge";
+import type { AppEdge, AppNode } from "store/items";
 
-const initialNodes: Node[] = [
+const initialNodes: AppNode[] = [
   {
     id: "n1",
     position: { x: 0, y: 0 },
-    data: { label: "Concierge", task: "Routing" },
+    data: { label: "Concierge", prompt: "Routing" },
     type: "taskNode",
   },
   {
     id: "n2",
     position: { x: 200, y: 50 },
-    data: { label: "Store Observer", task: "Managing Store" },
+    data: { label: "Store Observer", prompt: "Managing Store" },
     type: "taskNode",
   },
 ];
-const initialEdges: Edge[] = [
+const initialEdges: AppEdge[] = [
   {
     id: "n1-n2",
     source: "n1",
     target: "n2",
     type: "taskEdge",
-    data: { id: "e1", task: "Route request" },
+    data: { label: "e1", task: "Route request" },
   },
 ];
 
@@ -54,12 +55,12 @@ const Workflow: React.FC<Props> = ({ id }: Props) => {
   const [edges, setEdges] = useState(initialEdges);
 
   const onNodesChange = useCallback(
-    (changes: NodeChange<Node>[]) =>
+    (changes: NodeChange<AppNode>[]) =>
       setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
     []
   );
   const onEdgesChange = useCallback(
-    (changes: EdgeChange<Edge>[]) =>
+    (changes: EdgeChange<AppEdge>[]) =>
       setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
     []
   );
@@ -70,10 +71,10 @@ const Workflow: React.FC<Props> = ({ id }: Props) => {
   );
 
   const addNode = () => {
-    const newNode = {
+    const newNode: AppNode = {
       id: `n${nodes.length + 1}`,
       position: { x: Math.random() * 100, y: Math.random() * 100 },
-      data: { label: `Node ${nodes.length + 1}`, task: "new task" },
+      data: { label: `Node ${nodes.length + 1}`, prompt: "new task" },
       type: "taskNode",
     };
     setNodes((nds) => nds.concat(newNode));
@@ -122,7 +123,7 @@ const Workflow: React.FC<Props> = ({ id }: Props) => {
             taskEdge: TaskEdge,
           }}
           defaultEdgeOptions={{
-            markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18},
+            markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
           }}
           proOptions={{ hideAttribution: true }}
           fitView
