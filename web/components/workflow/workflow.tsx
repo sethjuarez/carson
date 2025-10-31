@@ -15,6 +15,7 @@ import {
   MiniMap,
   Panel,
   ReactFlowProvider,
+  MarkerType,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import TaskNode from "./tasknode";
@@ -119,6 +120,9 @@ const Workflow: React.FC<Props> = ({ id }: Props) => {
           }}
           edgeTypes={{
             taskEdge: TaskEdge,
+          }}
+          defaultEdgeOptions={{
+            markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18},
           }}
           proOptions={{ hideAttribution: true }}
           fitView

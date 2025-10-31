@@ -67,7 +67,11 @@ export default function App() {
       />
       <div className={styles.container}>
         <div className={styles.content}>
-          <Panel icon={<IoSparkles size={16} />} header="Work Panel">
+          <Panel
+            icon={<IoSparkles size={16} />}
+            header="Work Panel"
+            collapsed={true}
+          >
             <div className={styles.output} ref={chartRef}>
               {work && work.output && work.output.children.length > 0 && (
                 <Output data={work.output} height={height} width={width} />
@@ -77,7 +81,7 @@ export default function App() {
           <Panel
             icon={<IoGitBranchOutline size={16} />}
             header="Voice Workflow"
-            collapsed={true}
+            collapsed={false}
           >
             <Workflow />
           </Panel>

@@ -6,6 +6,10 @@ import {
   BaseEdge,
   getBezierPath,
   EdgeLabelRenderer,
+  getStraightPath,
+  getSmoothStepPath,
+  MarkerType,
+  Position,
 } from "@xyflow/react";
 import clsx from "clsx";
 
@@ -20,15 +24,22 @@ type TaskEdgeItem = Edge<
 const TaskEdge: React.FC<EdgeProps<TaskEdgeItem>> = (
   props: EdgeProps<TaskEdgeItem>
 ) => {
-  const [edgePath, labelX, labelY] = getBezierPath({
+  const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX: props.sourceX,
     sourceY: props.sourceY,
+    sourcePosition: Position.Right,
     targetX: props.targetX,
     targetY: props.targetY,
+    targetPosition: Position.Left,
   });
+  console.log("markerEnd:", props.markerEnd);
   return (
     <>
-      <BaseEdge id={props.data?.id} path={edgePath} />
+      <BaseEdge
+        id={props.data?.id}
+        path={edgePath}
+        markerEnd={props.markerEnd}
+      />
       <EdgeLabelRenderer>
         <div
           style={{
